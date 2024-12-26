@@ -193,7 +193,7 @@ class _LoginScreenState extends State<_LoginScreen> {
                             ),
                             width: 200,
                             height: 50,
-                            child: FlatButton(
+                            child: TextButton(
                               child: Stack(
                                 children: <Widget>[
                                   Visibility(

@@ -128,15 +128,19 @@ class MyWidgets {
     );
   }
 
-  static toastWithKey(GlobalKey<ScaffoldState> _scaffoldKey, _message) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: colors.buttonColor,
-      content: MyWidgets.getTextWidget(
+  static toastWithKey(
+      GlobalKey<ScaffoldMessengerState> _scaffoldKey, _message) {
+    _scaffoldKey.currentState?.showSnackBar(
+      SnackBar(
+        backgroundColor: colors.buttonColor,
+        content: MyWidgets.getTextWidget(
           text: _message,
           color: colors.textColor,
-          size: Fonts.appBarTitle_size),
-      duration: Duration(seconds: 3),
-    ));
+          size: Fonts.appBarTitle_size,
+        ),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   static InputDecoration getTextFormDecoration(
@@ -384,14 +388,14 @@ class MyWidgets {
   }
 
   static showToast(BuildContext context, var _message) {
-    final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: colors.buttonColor,
         content: MyWidgets.getTextWidget(
-            text: '$_message',
-            color: colors.textColor,
-            size: Fonts.appBarTitle_size),
+          text: '$_message',
+          color: colors.textColor,
+          size: Fonts.appBarTitle_size,
+        ),
       ),
     );
   }

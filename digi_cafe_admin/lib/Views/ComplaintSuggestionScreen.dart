@@ -123,12 +123,22 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
                     decoration: BoxDecoration(
                       color: colors.buttonColor,
                     ),
-                    child: FlatButton(
-                      color: colors.buttonColor,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor:
+                            colors.buttonColor, // Button background color
+                        padding:
+                            EdgeInsets.all(16.0), // Adjust padding as needed
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8.0), // Rounded corners
+                        ),
+                      ),
                       child: MyWidgets.getTextWidget(
-                          text: 'Apply',
-                          size: Fonts.button_size,
-                          color: colors.buttonTextColor),
+                        text: 'Apply',
+                        size: Fonts.button_size,
+                        color: colors.buttonTextColor, // Text color
+                      ),
                       onPressed: () async {
                         fromDate = fromDateWidget.date;
                         toDate = toDateWidget.date;
@@ -151,9 +161,9 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
                           }
                           print(fromDate);
                           print(toDate);
-                          fromDateTemp = new DateTime(fromDate.year,
-                              fromDate.month, fromDate.day, 0, 0, 0, 0, 0);
-                          toDateTemp = new DateTime(toDate.year, toDate.month,
+                          fromDateTemp = DateTime(fromDate.year, fromDate.month,
+                              fromDate.day, 0, 0, 0, 0, 0);
+                          toDateTemp = DateTime(toDate.year, toDate.month,
                               toDate.day, 0, 0, 0, 0, 0);
                           _complaintScreen.fromDate = fromDateTemp;
                           _complaintScreen.toDate = toDateTemp;
@@ -162,8 +172,8 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
                             _complaintScreen.fromDate = fromDateTemp;
                             _complaintScreen.toDate = toDateTemp;
                             _complaintScreen.complaintState.getQuerySnapshot(
-                                _complaintScreen
-                                    .complaintState.chosenComplaint);
+                              _complaintScreen.complaintState.chosenComplaint,
+                            );
                           } else {
                             _suggestionScreen.fromDate = fromDateTemp;
                             _suggestionScreen.toDate = toDateTemp;
@@ -171,7 +181,6 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
                                 .getQuerySnapshot();
                           }
                         } else {
-                          // _setState(() {});
                           _setState(() {
                             displayAlertMsg = true;
                           });

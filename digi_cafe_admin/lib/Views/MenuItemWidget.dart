@@ -17,7 +17,7 @@ class MenuItemWidget extends StatefulWidget {
   var category;
   var quantity;
   bool autoRestock;
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   BuildContext context;
 

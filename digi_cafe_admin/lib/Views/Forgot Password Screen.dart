@@ -12,9 +12,12 @@ class ForgotPasswordScreen extends StatelessWidget {
     // TODO: implement build
     return MaterialApp(
       theme: ThemeData(
-        backgroundColor: colors.backgroundColor,
+        scaffoldBackgroundColor: colors.backgroundColor,
         primaryColor: colors.buttonColor,
-        cursorColor: colors.cursorColor,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: colors.buttonColor,
+          secondary: colors.cursorColor,
+        ),
       ),
       home: Scaffold(
         body: _ForgotPasswordScreen(),
@@ -108,7 +111,7 @@ class _ForgotPasswordScreenState extends State<_ForgotPasswordScreen> {
                     ),
                     width: 200,
                     height: 50,
-                    child: FlatButton(
+                    child: TextButton(
                       child: Stack(
                         children: <Widget>[
                           Visibility(
@@ -232,7 +235,7 @@ class _ForgotPasswordScreenState extends State<_ForgotPasswordScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: colors.buttonColor,
                         ),
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () async {
                             Navigator.pop(context);
                             Navigator.push(

@@ -227,26 +227,20 @@ class _ViewFeedbackDetailsState extends State<ViewFeedbackDetails> {
                                       ),
                                       width: 175,
                                       height: 50,
-                                      child: FlatButton(
-                                        disabledColor: Colors.grey,
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Visibility(
-                                                visible: !_buttonPressed,
-                                                child: MyWidgets.getTextWidget(
-                                                    text: 'Reply',
-                                                    size: Fonts.heading3_size,
-                                                    color: colors
-                                                        .buttonTextColor)),
-                                            Visibility(
-                                              visible: _buttonPressed,
-                                              child: CircularProgressIndicator(
-                                                valueColor:
-                                                    new AlwaysStoppedAnimation<
-                                                        Color>(Colors.white),
-                                              ),
-                                            ),
-                                          ],
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: _feedbackDetails
+                                                      .reply !=
+                                                  null
+                                              ? Colors.grey
+                                              : colors
+                                                  .buttonColor, // Disable color
+                                          padding: EdgeInsets.all(
+                                              16.0), // Adjust padding as needed
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                8.0), // Rounded corners
+                                          ),
                                         ),
                                         onPressed: _feedbackDetails.reply !=
                                                 null
@@ -257,18 +251,38 @@ class _ViewFeedbackDetailsState extends State<ViewFeedbackDetails> {
                                                 });
                                                 await _orderUIController
                                                     .submitReply(
-                                                        text: details.text,
-                                                        feedbackID: details.id,
-                                                        reply: replyController
-                                                            .text,
-                                                        type: widget.type,
-                                                        email: details.email)
+                                                  text: details.text,
+                                                  feedbackID: details.id,
+                                                  reply: replyController.text,
+                                                  type: widget.type,
+                                                  email: details.email,
+                                                )
                                                     .then((value) {
                                                   setState(() {
                                                     _buttonPressed = false;
                                                   });
                                                 });
                                               },
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible: !_buttonPressed,
+                                              child: MyWidgets.getTextWidget(
+                                                text: 'Reply',
+                                                size: Fonts.heading3_size,
+                                                color: colors.buttonTextColor,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: _buttonPressed,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

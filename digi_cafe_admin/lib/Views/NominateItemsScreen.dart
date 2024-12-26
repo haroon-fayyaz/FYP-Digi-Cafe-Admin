@@ -181,14 +181,7 @@ class _NominateItemsState extends State<NominateItemsState> {
         _displayLoadingWidget = false;
       });
       if (result) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: colors.buttonColor,
-          content: MyWidgets.getTextWidget(
-              text: 'Items nominated successfully',
-              color: colors.textColor,
-              size: Fonts.appBarTitle_size),
-          duration: Duration(seconds: 3),
-        ));
+        MyWidgets.showToast(context, "Items nominated successfully");
       }
     }
     setState(() {

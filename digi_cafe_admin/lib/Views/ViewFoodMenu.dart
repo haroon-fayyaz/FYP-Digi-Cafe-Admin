@@ -38,7 +38,8 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
     querySnapshot = _foodMenuUIController.getFoodMenuSnapshot();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldMessengerState> scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
         builder: (context, isOnline) => !isOnline
             ? NoInternetScreen(screen: ViewFoodMenu())
             : Scaffold(
-                key: _scaffoldKey,
+                key: scaffoldKey,
                 appBar: MyWidgets.getFilterAppBar(
                     text: 'View Food Menu',
                     child: Icons.refresh,
@@ -63,7 +64,7 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
                           _isLoading = false;
                         });
                         MyWidgets.toastWithKey(
-                            _scaffoldKey, 'Food Items Restocked');
+                            scaffoldKey, 'Food Items Restocked');
                       });
                     }),
                 backgroundColor: colors.backgroundColor,
@@ -133,7 +134,7 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
                                                   autoRestock:
                                                       dish.data['autoRestock'],
                                                   context: buildContext,
-                                                  scaffoldKey: _scaffoldKey,
+                                                  scaffoldKey: scaffoldKey,
                                                 );
 
                                                 Widget x = Column(
