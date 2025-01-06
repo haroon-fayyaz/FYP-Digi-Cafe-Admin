@@ -17,7 +17,8 @@ class MenuItemWidget extends StatefulWidget {
   var category;
   var quantity;
   bool autoRestock;
-  GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<ScaffoldMessengerState> scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   BuildContext context;
 
@@ -52,59 +53,60 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
   @override
   Widget build(BuildContext context) {
     this._buildContext = context;
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height / 3.5,
-            width: MediaQuery.of(context).size.width - 10,
-            child: InkWell(
-              onTap: () {
-                //TODO: Update Employee
-                FoodItem foodItem = new FoodItem(
-                    widget.foodID,
-                    widget.name,
-                    widget.description,
-                    widget.foodImg,
-                    double.parse(widget.price),
-                    widget.quantity.toDouble());
-                List<FoodItem> list = new List();
-                list.add(foodItem);
-                FoodMenu menu = new FoodMenu(widget.category, list);
-                MyWidgets.changeScreen(
-                    context: context,
-                    screen: AddFoodMenuScreen(
-                        foodItem: menu,
-                        autoRestock: widget.autoRestock,
-                        actionType: "update"));
-              },
-              onDoubleTap: () {
-                //TODO: UpdateQuantity
-                createAlert(context);
-              },
-              onLongPress: () {
-                MyWidgets.showConfirmationDialog(_buildContext,
-                    text: 'Do you want to remove Food Item?',
-                    callback: () async {
-                  //TODO: Delete Food
-                  bool result =
-                      await _foodMenuUIController.deleteFoodItem(widget.foodID);
-                  for (int i = 0; i < 2000; i++) {}
-                  if (result.toString() == "true") {
-                    _showToast(
-                        widget.context, "Food Item deleted successfully");
-                  } else {
-                    _showToast(widget.context, "Food Item delete unsuccessful");
-                  }
-                });
-              },
-              child: Card(
-                elevation: 10,
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 5.0,
+              width: MediaQuery.of(context).size.width - 10,
+              child: InkWell(
+                onTap: () {
+                  //TODO: Update Employee
+                  FoodItem foodItem = new FoodItem(
+                      widget.foodID,
+                      widget.name,
+                      widget.description,
+                      widget.foodImg,
+                      double.parse(widget.price),
+                      widget.quantity.toDouble());
+                  List<FoodItem> list = new List();
+                  list.add(foodItem);
+                  FoodMenu menu = new FoodMenu(widget.category, list);
+                  MyWidgets.changeScreen(
+                      context: context,
+                      screen: AddFoodMenuScreen(
+                          foodItem: menu,
+                          autoRestock: widget.autoRestock,
+                          actionType: "update"));
+                },
+                onDoubleTap: () {
+                  //TODO: UpdateQuantity
+                  createAlert(context);
+                },
+                onLongPress: () {
+                  MyWidgets.showConfirmationDialog(_buildContext,
+                      text: 'Do you want to remove Food Item?',
+                      callback: () async {
+                    //TODO: Delete Food
+                    bool result = await _foodMenuUIController
+                        .deleteFoodItem(widget.foodID);
+                    for (int i = 0; i < 2000; i++) {}
+                    if (result.toString() == "true") {
+                      _showToast(
+                          widget.context, "Food Item deleted successfully");
+                    } else {
+                      _showToast(
+                          widget.context, "Food Item delete unsuccessful");
+                    }
+                  });
+                },
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: (MediaQuery.of(context).size.height / 3.5) - 70,
+                      height: (MediaQuery.of(context).size.height / 5.0) - 70,
                       child: Stack(
                         alignment: AlignmentDirectional.bottomEnd,
                         children: <Widget>[
@@ -134,7 +136,7 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(left: 10),
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 0.88,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -144,7 +146,7 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
                                     constraints: BoxConstraints(
                                         maxWidth:
                                             MediaQuery.of(context).size.width *
-                                                0.6),
+                                                0.9),
                                     child: MyWidgets.getTextWidget(
                                         text: widget.name,
                                         size: Fonts.dishName_font,
@@ -175,8 +177,8 @@ class _MenuItemWidgetState extends State<MenuItemWidget> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -56,7 +56,7 @@ class _CheckReviewsScreen extends State<CheckReviewsScreen> {
       builder: (context, isOnline) => !isOnline
           ? NoInternetScreen(screen: CheckReviewsScreen())
           : Scaffold(
-              appBar: MyWidgets.getPopMenu(list: <String>[
+              appBar: MyWidgets.getPopMenu(context: context, list: <String>[
                 'Most Relevant',
                 'Positive Reviews',
                 'Negative Reviews'

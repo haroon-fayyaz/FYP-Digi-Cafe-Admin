@@ -35,7 +35,7 @@ class _CheckFoodReview extends State<CheckFoodReviewScreen> {
       builder: (context, isOnline) => !isOnline
           ? NoInternetScreen(screen: CheckFoodReviewScreen(widget.orderDoc))
           : Scaffold(
-              appBar: MyWidgets.getAppBar(text: 'View Food Reviews'),
+              appBar: MyWidgets.getFilterAppBar(context: context, text: 'View Food Reviews'),
               body: SingleChildScrollView(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: querySnapshot,

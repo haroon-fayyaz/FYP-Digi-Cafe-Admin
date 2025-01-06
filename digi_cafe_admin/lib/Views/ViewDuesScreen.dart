@@ -37,6 +37,7 @@ class _ViewDuesScreen extends State<ViewDuesScreen> {
           ? NoInternetScreen(screen: ViewDuesScreen())
           : Scaffold(
               appBar: MyWidgets.getFilterAppBar(
+                  context: context,
                   text: 'View Dues',
                   child: Icons.notifications,
                   onTap: () {

@@ -22,15 +22,12 @@ class ViewFoodMenu extends StatefulWidget {
 }
 
 class _ViewFoodMenu extends State<ViewFoodMenu> {
-  List<MenuItemWidget> menuItemWidget = [];
-
   FoodMenuUIController _foodMenuUIController;
-  var prevCategory;
-  var count = 0;
   Stream<QuerySnapshot> querySnapshot;
 
   BuildContext buildContext;
   bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,13 +41,13 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
   @override
   Widget build(BuildContext context) {
     this.buildContext = context;
-    // TODO: implement build
     return ConnectivityWidget(
         builder: (context, isOnline) => !isOnline
             ? NoInternetScreen(screen: ViewFoodMenu())
             : Scaffold(
                 key: scaffoldKey,
                 appBar: MyWidgets.getFilterAppBar(
+                    context: context,
                     text: 'View Food Menu',
                     child: Icons.refresh,
                     onTap: () async {
@@ -111,62 +108,104 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
                                         ConnectionState.active) {
-                                      return !snapshot.hasData
-                                          ? LoadingWidget()
-                                          : ListView.builder(
-                                              itemCount: snapshot
-                                                  .data.documents.length,
-                                              itemBuilder: (context, index) {
-                                                DocumentSnapshot dish = snapshot
-                                                    .data.documents[index];
-                                                Widget widget = MenuItemWidget(
-                                                  quantity:
-                                                      dish.data['stockLeft'],
-                                                  foodImg: dish.data['imgURL'],
-                                                  category:
-                                                      dish.data['category'],
-                                                  foodID: dish.documentID,
-                                                  price: dish.data['price']
-                                                      .toString(),
-                                                  description:
-                                                      dish.data['description'],
-                                                  name: dish.data['name'],
-                                                  autoRestock:
-                                                      dish.data['autoRestock'],
-                                                  context: buildContext,
-                                                  scaffoldKey: scaffoldKey,
-                                                );
+                                      if (!snapshot.hasData) {
+                                        return LoadingWidget();
+                                      }
 
-                                                Widget x = Column(
-                                                  children: [
-                                                    index > 0
-                                                        ? snapshot
-                                                                        .data
-                                                                        .documents[
-                                                                            index -
-                                                                                1]
-                                                                        .data[
-                                                                    'category'] !=
-                                                                dish.data[
-                                                                    'category']
-                                                            ? getTextWidget(
-                                                                capitalize(dish
-                                                                        .data[
-                                                                    'category']))
-                                                            : Container()
-                                                        : getTextWidget(
-                                                            capitalize(dish
-                                                                    .data[
-                                                                'category'])),
-                                                    widget,
-                                                  ],
-                                                );
+                                      // Group items by category
+                                      Map<String, List<DocumentSnapshot>>
+                                          groupedItems = {};
+                                      snapshot.data.documents.forEach((doc) {
+                                        String category = doc.data['category'];
+                                        if (!groupedItems
+                                            .containsKey(category)) {
+                                          groupedItems[category] = [];
+                                        }
+                                        groupedItems[category].add(doc);
+                                      });
 
-                                                return x;
-                                              },
-                                            );
-                                    } else
+                                      return ListView.builder(
+                                        itemCount: groupedItems.keys.length,
+                                        itemBuilder: (context, index) {
+                                          String category = groupedItems.keys
+                                              .elementAt(index);
+                                          List<DocumentSnapshot> items =
+                                              groupedItems[category];
+
+                                          return Card(
+                                            elevation: 10,
+                                            margin: EdgeInsets.all(10),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  getTextWidget(
+                                                      capitalize(category)),
+                                                  Column(
+                                                    children: items
+                                                        .asMap()
+                                                        .map((idx, dish) {
+                                                          return MapEntry(
+                                                              idx,
+                                                              Column(
+                                                                children: <
+                                                                    Widget>[
+                                                                  MenuItemWidget(
+                                                                    quantity: dish
+                                                                            .data[
+                                                                        'stockLeft'],
+                                                                    foodImg: dish
+                                                                            .data[
+                                                                        'imgURL'],
+                                                                    category: dish
+                                                                            .data[
+                                                                        'category'],
+                                                                    foodID: dish
+                                                                        .documentID,
+                                                                    price: dish
+                                                                        .data[
+                                                                            'price']
+                                                                        .toString(),
+                                                                    description:
+                                                                        dish.data[
+                                                                            'description'],
+                                                                    name: dish
+                                                                            .data[
+                                                                        'name'],
+                                                                    autoRestock:
+                                                                        dish.data[
+                                                                            'autoRestock'],
+                                                                    context:
+                                                                        buildContext,
+                                                                    scaffoldKey:
+                                                                        scaffoldKey,
+                                                                  ),
+                                                                  idx ==
+                                                                          items.length -
+                                                                              1
+                                                                      ? Container()
+                                                                      : Divider(
+                                                                          thickness:
+                                                                              1.1,
+                                                                        ),
+                                                                ],
+                                                              ));
+                                                        })
+                                                        .values
+                                                        .toList(),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
                                       return LoadingWidget();
+                                    }
                                   }),
                             ),
                           ]),
@@ -175,7 +214,6 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
 
   String capitalize(String string) {
     if (string == null) {
-      // throw ArgumentError.notNull('string');
       return null;
     }
 
@@ -224,7 +262,8 @@ class _ViewFoodMenu extends State<ViewFoodMenu> {
       padding: const EdgeInsets.all(15),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: MyWidgets.getTextWidget(text: data, size: Fonts.heading1_size),
+        child: MyWidgets.getTextWidget(
+            text: data, size: Fonts.heading1_size, weight: FontWeight.w600),
       ),
     );
   }

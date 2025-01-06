@@ -52,7 +52,8 @@ class ViewEmployees extends StatelessWidget {
         builder: (context, isOnline) => !isOnline
             ? NoInternetScreen(screen: ViewEmployees())
             : Scaffold(
-                appBar: MyWidgets.getAppBar(text: 'View Employees'),
+                appBar: MyWidgets.getFilterAppBar(
+                    context: context, text: 'View Employees'),
                 body: _ViewEmployees(),
                 floatingActionButton: SpeedDial(
                     animatedIcon: AnimatedIcons.menu_close,
@@ -180,8 +181,8 @@ class __ViewEmployees extends State<_ViewEmployees> {
                                             children: <Widget>[
                                               Container(
                                                 margin: EdgeInsets.all(10.0),
-                                                height: 120.0,
-                                                width: 120,
+                                                height: 80.0,
+                                                width: 80.0,
                                                 child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -191,7 +192,7 @@ class __ViewEmployees extends State<_ViewEmployees> {
                                                         ? Image.asset(
                                                             'images/profile_pic.png')
                                                         : Image.network(
-                                                            employee.imgURL)),
+                                                            employee.imgURL, fit: BoxFit.cover,)),
                                               ),
                                               Column(
                                                 mainAxisAlignment:
@@ -208,7 +209,7 @@ class __ViewEmployees extends State<_ViewEmployees> {
                                                               text:
                                                                   employee.Name,
                                                               size: Fonts
-                                                                  .heading1_size,
+                                                                  .cardTitle_size,
                                                               weight: FontWeight
                                                                   .w500)),
                                                   Container(
@@ -221,7 +222,7 @@ class __ViewEmployees extends State<_ViewEmployees> {
                                                           .getTextWidget(
                                                         text: employee.userType,
                                                         size:
-                                                            Fonts.heading2_size,
+                                                            Fonts.heading3_size,
                                                       )),
                                                 ],
                                               ),

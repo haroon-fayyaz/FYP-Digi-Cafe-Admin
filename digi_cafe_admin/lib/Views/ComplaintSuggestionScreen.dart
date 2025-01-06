@@ -69,7 +69,7 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
       length: _kTabs.length,
       child: Scaffold(
         backgroundColor: colors.backgroundColor,
-        appBar: getSalesAppBar(),
+        appBar: getSalesAppBar(_buildContext),
         body: TabBarView(
           controller: _tabController,
           children: _kTabsPages,
@@ -197,9 +197,13 @@ class _ComplaintSuggestionScreen extends State<ComplaintSuggestionScreen>
     ).show();
   }
 
-  Widget getSalesAppBar() {
+  Widget getSalesAppBar(
+    BuildContext context,
+  ) {
     return MyWidgets.getFilterAppBar(
+      context: context,
       text: 'Complaints/Suggestions',
+      child: Icons.filter_list,
       onTap: () => createFilterAlert(context),
       bottom: TabBar(
         controller: _tabController,

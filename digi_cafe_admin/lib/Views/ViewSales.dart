@@ -108,7 +108,7 @@ class __ViewSales extends State<_ViewSales> with TickerProviderStateMixin {
       builder: (context, isOnline) => !isOnline
           ? NoInternetScreen(screen: ViewSales())
           : Scaffold(
-              appBar: getSalesAppBar(),
+              appBar: getSalesAppBar(context),
               bottomNavigationBar: Row(
                 children: [
                   Padding(
@@ -422,9 +422,12 @@ class __ViewSales extends State<_ViewSales> with TickerProviderStateMixin {
     );
   }
 
-  Widget getSalesAppBar() {
+  Widget getSalesAppBar(context) {
     return MyWidgets.getFilterAppBar(
-        text: 'View Sales', onTap: () => createFilterAlert(context));
+        context: context,
+        text: 'View Sales',
+        child: Icons.filter_list,
+        onTap: () => createFilterAlert(context));
   }
 }
 

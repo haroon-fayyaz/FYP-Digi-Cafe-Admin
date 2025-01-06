@@ -94,7 +94,7 @@ class __SettingScreen extends State<_SettingScreen> {
       builder: (context, isOnline) => !isOnline
           ? NoInternetScreen(screen: SettingScreen())
           : Scaffold(
-              appBar: MyWidgets.getAppBar(text: 'Settings'),
+              appBar: MyWidgets.getFilterAppBar(context: context, text: 'Settings'),
               backgroundColor: colors.backgroundColor,
               body: Stack(
                 children: [

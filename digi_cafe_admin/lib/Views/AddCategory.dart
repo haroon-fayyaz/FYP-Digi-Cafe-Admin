@@ -13,7 +13,7 @@ class AddCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyWidgets.getAppBar(text: 'Add Category'),
+      appBar: MyWidgets.getFilterAppBar(context: context, text: 'Add Category'),
       backgroundColor: colors.backgroundColor,
       body: _AddCategoryScreen(),
     );

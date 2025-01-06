@@ -150,7 +150,8 @@ class _AddFoodMenuScreen3State extends State<_AddFoodMenuScreen> {
               foodItem: foodItem,
             ))
           : Scaffold(
-              appBar: MyWidgets.getAppBar(text: '$screenHeader'),
+              appBar: MyWidgets.getFilterAppBar(
+                  context: context, text: '$screenHeader'),
               body: Stack(
                 children: [
                   _displayLoadingWidget

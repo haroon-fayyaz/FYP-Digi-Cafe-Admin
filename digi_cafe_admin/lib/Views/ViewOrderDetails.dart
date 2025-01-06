@@ -36,7 +36,8 @@ class _ViewOrderDetailsState extends State<ViewOrderDetails> {
         builder: (context, isOnline) => !isOnline
             ? NoInternetScreen(screen: ViewOrderDetails(widget.orderNo))
             : Scaffold(
-                appBar: MyWidgets.getAppBar(text: 'Order Details'),
+                appBar: MyWidgets.getFilterAppBar(
+                    context: context, text: 'Order Details'),
                 backgroundColor: colors.backgroundColor,
                 body: SafeArea(
                   child: SingleChildScrollView(

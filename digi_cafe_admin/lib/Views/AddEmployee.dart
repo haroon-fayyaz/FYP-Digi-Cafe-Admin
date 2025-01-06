@@ -363,7 +363,9 @@ class _AddEmployeeScreen3State extends State<AddEmployeeScreenFul> {
     );
 
     return Scaffold(
-        appBar: MyWidgets.getAppBar(text: '$screenHeader'), body: widget);
+        appBar:
+            MyWidgets.getFilterAppBar(context: context, text: '$screenHeader'),
+        body: widget);
     return widget;
   }
 

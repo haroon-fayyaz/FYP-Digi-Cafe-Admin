@@ -71,7 +71,8 @@ class _ViewVouchersTabs extends State<ViewVouchersTabs>
               ),
             ]),
         backgroundColor: colors.backgroundColor,
-        appBar: MyWidgets.getAppBar(
+        appBar: MyWidgets.getFilterAppBar(
+          context: context,
           text: 'View Vouchers',
           bottom: TabBar(
             controller: _tabController,

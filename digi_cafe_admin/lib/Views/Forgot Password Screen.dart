@@ -11,6 +11,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: colors.backgroundColor,
         primaryColor: colors.buttonColor,

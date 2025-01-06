@@ -50,6 +50,7 @@ class __Dashboard extends State<_Dashboard> {
     return Scaffold(
       backgroundColor: colors.backgroundColor,
       appBar: MyWidgets.getFilterAppBar(
+          context: _buildContext,
           text: 'Digi Café Admin',
           child: Icons.power_settings_new,
           secondChild: Icons.settings,
@@ -64,20 +65,21 @@ class __Dashboard extends State<_Dashboard> {
           child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
                     height: (MediaQuery.of(context).size.height *
-                                Fonts.dashboardItem_heightFactor) *
+                                0.4) *
                             0.5 -
                         60,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(100.0),
                     ),
-                    margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
                     child: ClipRRect(
                       child: Image.asset(
-                        'images/profile_pic.png',
+                        'images/admin_profile.png',
                       ),
                     ),
                   ),
@@ -110,7 +112,9 @@ class __Dashboard extends State<_Dashboard> {
                         height: MediaQuery.of(context).size.width *
                             Fonts.dashboardItem_heightFactor,
                         text: 'Manage Employees',
-                        child: Image.asset('images/manage_employee.png'),
+                        child: Image.asset(
+                          'images/manage_employee.png',
+                        ),
                         onTap: () => MyWidgets.changeScreen(
                             context: context, screen: new ViewEmployees())),
                     MyWidgets.getDashboardItem(

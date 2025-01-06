@@ -66,14 +66,24 @@ class MyWidgets {
   }
 
   static Widget getFilterAppBar({
+    BuildContext context,
     String text,
     VoidCallback onTap,
     Widget bottom = null,
-    var child = Icons.filter_list,
+    var child = null,
     var secondChild = null,
     VoidCallback secondTap = null,
   }) {
     return AppBar(
+      iconTheme: IconThemeData(size: Fonts.iconSize, color: colors.appBarColor),
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          size: Fonts.iconSize,
+          color: colors.appBarColor,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
       bottom: bottom,
       backgroundColor: colors.buttonColor,
       title: getTextWidget(
@@ -83,18 +93,24 @@ class MyWidgets {
             ? Padding(
                 padding: const EdgeInsets.only(top: 0, right: 20),
                 child: InkWell(
-                  child: Icon(secondChild),
+                  child: Icon(
+                    secondChild,
+                  ),
                   onTap: secondTap,
                 ),
               )
             : Container(),
-        Padding(
-          padding: const EdgeInsets.only(top: 0, right: 20),
-          child: InkWell(
-            child: Icon(child),
-            onTap: onTap,
-          ),
-        ),
+        child != null
+            ? Padding(
+                padding: const EdgeInsets.only(top: 0, right: 20),
+                child: InkWell(
+                  child: Icon(
+                    child,
+                  ),
+                  onTap: onTap,
+                ),
+              )
+            : Container(),
       ],
     );
   }
@@ -353,7 +369,7 @@ class MyWidgets {
   }
 
   static TextStyle getTextStyle(
-      {var size = Fonts.heading2_size,
+      {var size = Fonts.heading3_size,
       FontWeight weight = FontWeight.normal,
       var color = colors.buttonTextColor,
       var bgColor = null}) {
@@ -367,10 +383,12 @@ class MyWidgets {
   }
 
   static getPopMenu(
-      {Function(String) onSelected = null,
+      {BuildContext context,
+      Function(String) onSelected = null,
       @required List<String> list,
       String text = ''}) {
-    return getAppBar(
+    return getFilterAppBar(
+      context: context,
       text: text,
       child: PopupMenuButton<String>(
         icon: Icon(Icons.filter_list),

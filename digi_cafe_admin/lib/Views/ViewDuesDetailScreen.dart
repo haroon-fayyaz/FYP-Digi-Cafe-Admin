@@ -39,7 +39,8 @@ class _ViewDuesDetailScreen extends State<ViewDuesDetailScreen> {
               docId: widget.docId,
             ))
           : Scaffold(
-              appBar: MyWidgets.getAppBar(
+              appBar: MyWidgets.getFilterAppBar(
+                context: context,
                 text: 'View Dues Detail',
               ),
               backgroundColor: colors.backgroundColor,

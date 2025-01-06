@@ -109,7 +109,7 @@ class _AddVoucherScreenState extends State<_AddVoucherScreen> {
               screen: AddVoucherScreen(widget._voucher, widget.actionType))
           : Scaffold(
               backgroundColor: colors.backgroundColor,
-              appBar: MyWidgets.getAppBar(text: screenHeader),
+              appBar: MyWidgets.getFilterAppBar(context: context, text: screenHeader),
               body: SafeArea(
                 child: Stack(
                   children: [

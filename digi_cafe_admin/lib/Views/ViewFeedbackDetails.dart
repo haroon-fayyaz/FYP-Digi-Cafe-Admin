@@ -55,7 +55,8 @@ class _ViewFeedbackDetailsState extends State<ViewFeedbackDetails> {
           ? NoInternetScreen(
               screen: ViewFeedbackDetails(widget.type, widget.complaintID))
           : Scaffold(
-              appBar: MyWidgets.getAppBar(
+              appBar: MyWidgets.getFilterAppBar(
+                  context: context,
                   text: 'View ' +
                       widget.type[0].toUpperCase() +
                       widget.type.substring(1) +

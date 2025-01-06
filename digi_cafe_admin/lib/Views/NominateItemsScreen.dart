@@ -62,7 +62,8 @@ class _NominateItemsState extends State<NominateItemsState> {
           ? NoInternetScreen(screen: NominateItemsScreen())
           : Scaffold(
               key: _scaffoldKey,
-              appBar: MyWidgets.getAppBar(text: 'Nominate Items'),
+              appBar: MyWidgets.getFilterAppBar(
+                  context: context, text: 'Nominate Items'),
               bottomNavigationBar: Padding(
                 padding:
                     const EdgeInsets.only(left: 120, right: 120, bottom: 5),

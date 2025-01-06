@@ -16,9 +16,21 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: colors.kPrimaryColor,
         backgroundColor: colors.backgroundColor,
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: MyWidgets.getTextStyle(color: colors.buttonColor),
+          hintStyle: MyWidgets.getTextStyle(color: Colors.grey),
+          fillColor: colors.backgroundColor,
+        ),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+              fontSize: 10.0, color: Colors.amberAccent), // Default text style
+          bodyText2: TextStyle(
+              fontSize: 10.0, color: Colors.amberAccent), // Default text style
+        ),
       ),
       home: Scaffold(
         body: _LoginScreen(),
